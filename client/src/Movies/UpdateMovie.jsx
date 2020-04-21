@@ -2,26 +2,20 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 export default function UpdateMovie(props) {
-  const { title, director, metascore, stars, id } = props.location.movie !== undefined ? props.location.movie : '';
-
-  const [updateMovie, setUpdateMovie] = useState();
   const [input, setInput] = useState(props.location.movie);
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:5000/api/movies/${id}`, input)
+    axios.put(`http://localhost:5000/api/movies/${input.id}`, input)
       .then(res => {
         console.log(res)
         window.location = "/"
       })
       .catch(err => console.log(err))
-    setUpdateMovie(input)
   }
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
-
-  console.log(updateMovie);
 
   return (
     <div>
