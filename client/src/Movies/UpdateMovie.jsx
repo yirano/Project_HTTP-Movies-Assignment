@@ -9,7 +9,10 @@ export default function UpdateMovie(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.put(`http://localhost:5000/api/movies/${id}`, input)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        window.location = "/"
+      })
       .catch(err => console.log(err))
     setUpdateMovie(input)
   }
