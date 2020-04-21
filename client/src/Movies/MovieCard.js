@@ -20,7 +20,7 @@ const MovieCard = props => {
         </div>
       ))}
 
-      <Link to={`/update-movie/${id}`}>Update Movie</Link>
+      <Link to={{ pathname: `/update-movie/${id}`, id: id }}>Update Movie</Link>
     </div>
   );
 };
