@@ -12,7 +12,7 @@ const App = (props) => {
 
   const getMovieList = () => {
     axios
-      .get("http://localhost:5000/api/movies")
+      .get("https://http-movies-assignment-a9udtygyw.now.sh/api/movies")
       .then(res => setMovieList(res.data))
       .catch(err => console.log(err.response));
   };

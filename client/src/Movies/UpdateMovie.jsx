@@ -5,7 +5,7 @@ export default function UpdateMovie(props) {
   const [input, setInput] = useState(props.location.movie);
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:5000/api/movies/${input.id}`, input)
+    axios.put(`https://http-movies-assignment-a9udtygyw.now.sh/api/movies/${input.id}`, input)
       .then(res => {
         console.log(res)
         window.location = "/"

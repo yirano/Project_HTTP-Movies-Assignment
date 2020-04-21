@@ -7,7 +7,7 @@ const MovieCard = props => {
   const movie = props.movie
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:5000/api/movies/${id}`)
+    axios.delete(`https://http-movies-assignment-a9udtygyw.now.sh/api/movies/${id}`)
       .then(res => {
         console.log('delete res', res)
         window.location = "/"
