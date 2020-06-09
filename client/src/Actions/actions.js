@@ -17,3 +17,14 @@ export const loadMovie = () => {
       .catch(err => dispatch({ type: LOAD_FAIL, payload: err }))
   }
 }
+
+export const editMovie = id => {
+  console.log(id)
+  const promise = axios.put(`http://localhost:5000/api/movies/${id}`)
+  return dispatch => {
+    promise
+      .then(res => console.log(res.data))
+    // dispatch({ type: EDIT_MOVIE, payload: id })
+  }
+
+}

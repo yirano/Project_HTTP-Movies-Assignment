@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 const MovieCard = props => {
   const { handleEdit } = props
@@ -23,5 +24,9 @@ const MovieCard = props => {
     </div>
   )
 }
+
+
+
+// export default connect()(MovieCard)
 
 export default MovieCard
