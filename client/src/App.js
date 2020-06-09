@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { Route } from "react-router-dom"
+import { connect } from 'react-redux'
 import SavedList from "./Movies/SavedList"
 import MovieList from "./Movies/MovieList"
 import Movie from "./Movies/Movie"
 import Form from './Movies/Form'
-import axios from 'axios'
+import { loadMovie } from './Actions/actions'
+
+
 
 const initialForm = {
   title: '',
@@ -13,13 +16,14 @@ const initialForm = {
   actors: []
 }
 
-const App = () => {
+const App = (props) => {
+  const { movies, isLoading } = props
   const [savedList, setSavedList] = useState([])
-  const [movieList, setMovieList] = useState([])
+  const [movieList, setMovieList] = useState(movies)
   const [form, setForm] = useState(initialForm)
 
   const handleEdit = e => {
-    console.log('handleEdit clicked')
+    console.log('handleEdit clicked', e.target.id)
   }
 
   const handleSubmit = e => {
@@ -27,35 +31,48 @@ const App = () => {
     console.log('handleSubmit clicked')
   }
 
-  const getMovieList = () => {
-    axios
-      .get("http://localhost:5000/api/movies")
-      .then(res => setMovieList(res.data))
-      .catch(err => console.log(err.response))
-  }
+  // const getMovieList = () => {
+  //   axios
+  //     .get("http://localhost:5000/api/movies")
+  //     .then(res => setMovieList(res.data))
+  //     .catch(err => console.log(err.response))
+  // }
 
   const addToSavedList = movie => {
     setSavedList([...savedList, movie])
   }
 
   useEffect(() => {
-    getMovieList()
-  }, [])
+    // getMovieList()
+    props.loadMovie()
 
+  }, [])
+  console.log(movies)
   return (
     <>
-      <SavedList list={savedList} />
-      <Form form={form} handleSubmit={handleSubmit} />
-
-      <Route exact path="/">
-        <MovieList movies={movieList} handleEdit={handleEdit} />
-      </Route>
-
-      <Route path="/movies/:id">
-        <Movie addToSavedList={addToSavedList} handleEdit={handleEdit} />
-      </Route>
+      {!isLoading ?
+        <>
+          <SavedList list={savedList} />
+          <Form form={form} handleSubmit={handleSubmit} />
+          <Route exact path="/">
+            <MovieList />
+          </Route>
+          <Route path="/movies/:id">
+            <Movie addToSavedList={addToSavedList} handleEdit={handleEdit} />
+          </Route>
+        </>
+        : <h1>Loading</h1>}
     </>
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    movies: state.movies,
+    isLoading: state.isLoading
+  }
+}
+export default connect(mapStateToProps, { loadMovie })(App)
+
+
+

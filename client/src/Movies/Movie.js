@@ -29,11 +29,9 @@ function Movie({ addToSavedList, handleEdit }) {
   return (
     <div className='save-wrapper'>
       <MovieCard movie={movie} handleEdit={handleEdit} />
-
       <div className='save-button' onClick={saveMovie}>
         Save
       </div>
-
     </div>
   )
 }
